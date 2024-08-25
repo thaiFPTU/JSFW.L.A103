@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>View Content</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container-fluid {
+            margin-top: 20px;
+        }
+        .sidebar {
+            background-color: #343a40;
+            padding: 20px;
+            height: 100vh;
+        }
+        .sidebar a {
+            color: #ffffff;
+            display: block;
+            margin: 10px 0;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+        .navbar {
+            background-color: #007bff;
+        }
+        .navbar .navbar-brand {
+            color: #ffffff;
+        }
+        .navbar .navbar-nav .nav-link {
+            color: #ffffff;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">CMS</a>
+    <div class="ml-auto">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/showFormforUpdate">User Profile</a>
+                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar">
+            <a th:href="@{/view}">View contents</a>
+            <a th:href="@{/add}">Form content</a>
+        </div>
+        <div class="col-md-10">
+            <div class="form-container">
+
+    <h1>View Content</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="width: 10%">#</th>
+            <th style="width: 20%">Title</th>
+            <th style="width: 30%">Brief</th>
+            <th style="width: 10%">CreatedOn</th>
+            <th style="width: 10%">Update On</th>
+            <th style="width: 20%">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="content, contentStat : ${contents}">
+            <td th:text="${contentStat.count}">1</td>
+            <td th:text="${content.title}"></td>
+            <td th:text="${content.brief}"></td>
+            <td th:text="${content.createdDate}"></td>
+            <td th:text="${content.updatedTime}"></td>
+            <td><a th:href="@{/showFormForUpdate(contentID = ${content.id})}" class="btn btn-info btn-sm">Update</a>
+                <a th:href="@{/deleteContent(contentID = ${content.id})}" class="btn btn-danger btn-sm"
+                onclick="if (!(confirm('Are you sure about that?'))) return false">Update</a>
+            </td>
+<!--            <td><a th:href="#">Delete</a></td>-->
+        </tr>
+        </tbody>
+    </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
