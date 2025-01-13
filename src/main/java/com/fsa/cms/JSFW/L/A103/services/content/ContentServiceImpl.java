@@ -1,5 +1,6 @@
 package com.fsa.cms.JSFW.L.A103.services.content;
 
+import ch.qos.logback.core.model.Model;
 import com.fsa.cms.JSFW.L.A103.dto.ContentDTO;
 import com.fsa.cms.JSFW.L.A103.entities.Content;
 import com.fsa.cms.JSFW.L.A103.entities.Member;
@@ -20,6 +21,9 @@ public class ContentServiceImpl implements ContentService{
 
     @Override
     public List<Content> findAll() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<Member> Currentmember = memberRepository.findByEmail(email);
+
         return contentRepository.findAll();
     }
 
